@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     private int currentIndex = 0;
     private bool isTyping = false;
     private bool isEnding = false;
-    public string nextSceneName;
+    public int nextSceneNumber;
     private Coroutine typingCoroutine;
 
 
@@ -61,9 +61,9 @@ public class DialogueManager : MonoBehaviour
         NextDialogue();
     }
 
-    public void NextDialogue()
+    public void NextDialogue()// 다음 dialogue로
     {
-        if(currentIndex > sentences.Length)
+        if(currentIndex >= sentences.Length)
         {
             EndDialogue();
             return;
@@ -92,7 +92,7 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
     }
 
-    void FinishSentenceEarly()
+    void FinishSentenceEarly()// dialogue 한번에 출력 
     {
         if(typingCoroutine != null)
         {
@@ -103,9 +103,11 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
     }
 
-    void EndDialogue()
+    void EndDialogue()//끝내기
     {
+        Debug.Log("대화 종료");
         isEnding = true;
         dialogueText.text = "";
+        StartCoroutine(FadeManager.instance.FadeOut(fadeImage,nextSceneNumber));
     }
 }

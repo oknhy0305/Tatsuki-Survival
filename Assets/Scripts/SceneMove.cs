@@ -1,10 +1,12 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneMove : MonoBehaviour
 {
+    public Image fadeImage;
+    public int nextSceneNumber;
     public void Scene()
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(FadeManager.instance.FadeOut(fadeImage,nextSceneNumber));
     }
 }
