@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D),typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMove : MonoBehaviour
 {
-    private PlayerControl Controls;
+    private PlayerControl controls;
     private Vector2 moveInput;
     private Rigidbody2D rb;
 
@@ -12,13 +12,29 @@ public class PlayerMove : MonoBehaviour
 
     void Awake()
     {
-        Controls = new PlayerControl();
+        controls = new PlayerControl();
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Enable()
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
+    void Update()
+    {
+        moveInput = controls.Player.Move.ReadValue<Vector2>().normalized;
+    }
+
+    void FixedUpdate()
     {
         
+        rb.linearVelocity = moveInput * moveSpeed;
     }
     
 }
