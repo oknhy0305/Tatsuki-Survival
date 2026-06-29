@@ -35,6 +35,8 @@ public class DialogueManager : MonoBehaviour
             fadeImage.gameObject.SetActive(false);
         }
 
+        StartCoroutine(FadeManager.instance.FadeIn(fadeImage));
+
         StartDialogue();
     }
 
